@@ -20,6 +20,25 @@ function argMin(arr) {
     return minIndex;
 }
 
+export function argMinObj(obj) {
+    if (obj.length === 0) {
+        return -1;
+    }
+
+    let min;
+    let minKey;
+
+    for (var i in obj) {
+        i = parseInt(i)
+        if (!min || obj[i] < min) {
+            minKey = i;
+            min = obj[i];
+        }
+    }
+
+    return minKey;
+};
+
 function drawPoint(x, y, c, color='black'){
     c.beginPath();
     c.arc(x, y, 3, 0, 2 * Math.PI, true);

@@ -1,17 +1,9 @@
+import { argMinObj } from "./utils"
+
+alert("pp")
+
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
-
-// // var PointsLength = document.getElementById('node_input').valueAsNumber;
-// // var PointsLength;
-
-// // var submit_button = document.getElementById('final-submit');
-
-// // submit_button.onclick = function() {
-// //     return document.getElementById('node_input').valueAsNumber;
-// // };
-
-// // var PointsLength = submit_button.onclick();
-// // console.log(PointsLength)
 
 canvas.width = 1000;
 canvas.height = 1000;
@@ -26,8 +18,6 @@ function createRandomPoints(length, maxX, maxY) {
     min = padding
 
     for(var i = 0; i < length; i++) {
-        // var x = Math.random() * maxX;
-        // var y = Math.random() * MaxY;
         var x = Math.floor(Math.random() * (maxX - min + 1) + min);
         var y = Math.floor(Math.random() * (maxY - min + 1) + min);
         points[i] = [x, y];
@@ -65,118 +55,87 @@ function argMin(arr) {
     return minIndex;
 }
 
-function argMinObj(obj) {
-    if (obj.length === 0) {
-        return -1;
-    }
-
-    var min;
-    var minKey;
-
-    for (var i in obj) {
-        i = parseInt(i)
-        if (!min || obj[i] < min) {
-            minKey = i;
-            min = obj[i];
-        }
-    }
-
-    return minKey;
-}
-
-  
-
-// var points = createRandomPoints(PointsLength, canvas.width, canvas.height);
-
-// for(var i = 0; i < PointsLength; i++) {
-//     if (i == 0) {
-//         color = "red";
-//     } else {
-//         color= 'black';
+// function argMinObj(obj) {
+//     if (obj.length === 0) {
+//         return -1;
 //     }
 
-//     drawPoint(points[i].x, points[i].y, c, color=color);              
+//     let min;
+//     let minKey;
+
+//     for (var i in obj) {
+//         i = parseInt(i)
+//         if (!min || obj[i] < min) {
+//             minKey = i;
+//             min = obj[i];
+//         }
+//     }
+
+//     return minKey;
 // }
 
-
-function drawPath(points, p, i = 0) {
-    
-    var distances = [];
-    point1 = points[i];
-    for (var j = 0; j < p.length; j++){
-        point2 = points[p[j]];
-        distances.push(distance(point1, point2));
+function NearestNeighbors(points, current_node = 0) {
+    if (current_node == 0) {        
+        var current_node = points[0]
+        delete points[0];
     }
 
-    closest_point = argMin(distances);
-    alert(p)
+    let distances = {}
+    for (var j in points) {
+        distances[j] = distance(current_node, points[parseInt(j)])
+    }
+
+    let closest_node = argMinObj(distances);
+    let closest_node_coords = points[closest_node];
 
     c.strokeStyle = 'white';
-    if (p.length <= 0) {
-        c.lineTo(points[0].x, points[0].y);
+    if (Object.keys(points).length < 1) {   
+        c.lineTo(origin_coords[0], origin_coords[1]);
         c.stroke();
         return;
     } else {
-        i = p[closest_point];
-        p.splice(closest_point, 1);
-        c.lineTo(points[i].x, points[i].y);
+        c.lineTo(closest_node_coords[0], closest_node_coords[1]);
         c.stroke();
-        setTimeout(function(){drawPath(points, p, i = i)}, 200);
-        alert(i)
-    }
-}
-
-function drawLine(lastNode, nextNode, color="white") {
-    alert(lastNode)
-    c.beginPath();
-    c.strokeStyle = "white";
-    c.lineWidth = 3;
-    c.moveTo(lastNode[0], lastNode[1]);
-    c.lineTo(nextNode[0], nextNode[1]);
-    c.stroke();
-    c.closePath();
-}
-
-function drawPath2(length, points) {
-    origin_node = points[0]
-    current_node = points[0]
-    delete points[0];
-
-    for (var i = 0; i < length-1; i++){
-        distances = {}
-        for (var j in points){
-            distances[j] = distance(current_node, points[parseInt(j)])
-        }
-        closest_node = argMinObj(distances);
-        drawLine(current_node, closest_node);
         current_node = points[closest_node];
         delete points[closest_node];
-        // c.lineTo(current_node[0], current_node[1]);
-        // c.stroke();
-        // setTimeout(function(){c.stroke()}, 200)
-        // setInterval(function(){
-        //     // c.lineTo(current_node[0], current_node[1]); 
-        //     // c.stroke();
-        //    }, 100);​
-
-        // drawLine(current_node[0], current_node[1]);
-        // c.stroke()
+        setTimeout(function(){NearestNeighbors(points, current_node = current_node)}, 200);
     }
-    // c.lineTo(origin_node[0], origin_node[1]);
-    // c.stroke();
 }
 
+function NearestInsertion(points, current_node = 0) {
+    if (current_node == 0) {        
+        var current_node = points[0]
+        delete points[0];
+    }
+
+    let distances = {}
+    for (var j in points) {
+        distances[j] = distance(current_node, points[parseInt(j)])
+    }
+
+    let closest_node = argMinObj(distances);
+    let closest_node_coords = points[closest_node];
+
+    c.strokeStyle = 'white';
+    if (Object.keys(points).length < 1) {   
+        c.lineTo(origin_coords[0], origin_coords[1]);
+        c.stroke();
+        return;
+    } else {
+        c.lineTo(closest_node_coords[0], closest_node_coords[1]);
+        c.stroke();
+        current_node = points[closest_node];
+        delete points[closest_node];
+        setTimeout(function(){NearestNeighbors(points, current_node = current_node)}, 200);
+    }
+}
 
 function run_animation() {
-    // var canvas = document.querySelector('canvas');
-    // var c = canvas.getContext('2d');
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    const PointsLength = document.getElementById('node_input').valueAsNumber;
+    const algo = document.querySelector('input[name="algo-input"]:checked').value;
 
-    // canvas.width = 500;
-    // canvas.height = 500;
-
-
-    var PointsLength = document.getElementById('node_input').valueAsNumber;
-    var points = createRandomPoints(PointsLength, canvas.width, canvas.height);
+    let points = createRandomPoints(PointsLength, canvas.width, canvas.height);
 
     for(var i = 0; i < PointsLength; i++) {
         if (i == 0) {
@@ -186,22 +145,19 @@ function run_animation() {
             color = 'white';
             size = 5.5;
         }
-
         drawPoint(points[i][0], points[i][1], c, size=size, color=color);              
     }
 
-    c.stroke()
-
-    // c.beginPath();
+    c.beginPath();
     c.strokeStyle = "white";
     c.lineWidth = 3;
-    
-    // c.moveTo(points[0][0], points[0][1]);
-    // var p = Array.from(Array(PointsLength).keys())
-    drawPath2(PointsLength, points)
+    origin_coords = points[0]
+    c.moveTo(points[0][0], points[0][1]);
+
+    if (algo == "NN") {
+        NearestNeighbors(points)
+    } else {
+        alert("Not yet implemented")
+        return;
+    }
 }
-// // c.beginPath();
-// // c.moveTo(points[0].x, points[0].y);
-// // var p = Array.from(Array(PointsLength).keys())
-// // console.log(p.length)
-// // drawPath(p)
