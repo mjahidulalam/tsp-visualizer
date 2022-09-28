@@ -1,7 +1,3 @@
-import { argMinObj } from "https://github.com/mjahidulalam/tsp-visualizer/blob/ccc0e6a19271ff368e65f62292b60236951eab09/utils.js"
-
-alert("pp")
-
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 
@@ -55,24 +51,24 @@ function argMin(arr) {
     return minIndex;
 }
 
-// function argMinObj(obj) {
-//     if (obj.length === 0) {
-//         return -1;
-//     }
+function argMinObj(obj) {
+    if (obj.length === 0) {
+        return -1;
+    }
 
-//     let min;
-//     let minKey;
+    let min;
+    let minKey;
 
-//     for (var i in obj) {
-//         i = parseInt(i)
-//         if (!min || obj[i] < min) {
-//             minKey = i;
-//             min = obj[i];
-//         }
-//     }
+    for (var i in obj) {
+        i = parseInt(i)
+        if (!min || obj[i] < min) {
+            minKey = i;
+            min = obj[i];
+        }
+    }
 
-//     return minKey;
-// }
+    return minKey;
+}
 
 function NearestNeighbors(points, current_node = 0) {
     if (current_node == 0) {        
