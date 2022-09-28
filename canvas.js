@@ -1,4 +1,4 @@
-import { argMinObj } from "./utils"
+import { argMinObj } from "https://github.com/mjahidulalam/tsp-visualizer/blob/ccc0e6a19271ff368e65f62292b60236951eab09/utils.js"
 
 alert("pp")
 
