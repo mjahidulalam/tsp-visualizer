@@ -4,14 +4,13 @@ body{
 }
 
 #headline{
-    padding-top: 10rem;
+    padding-top: 1rem;
 }
 
 canvas{
     border: 1px solid black;
     background-color: #444A4D;
     width: 100%;
-    /* height: 100px; */
 }
 
 .form-group #node_input{
@@ -43,6 +42,13 @@ canvas{
 }
 
 .card-body{
-    margin: 0rem 1rem 0rem 1rem;
-    padding: 0.7rem 0rem 0 0 !important;
+    margin: 0.7rem 1rem 0.7rem 1rem;
+    padding: 0;
+}
+
+p{
+    margin: 0;
+    padding: 0;
+    color: #A9A9A9; 
+    font-size: 13px;
 }
