@@ -23,12 +23,12 @@ canvas{
     background-color: #313536;
 }
 
-.form-control {
+.form-select {
     color: white;
     background-color: #202324;
 }
 
-.form-control:focus {
+.form-select:focus {
     color: white;
     background-color: #313536;
 }
