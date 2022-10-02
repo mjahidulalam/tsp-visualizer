@@ -34,6 +34,6 @@ function drawCycles(solution, line_color = "white", line_width = 3){
 
 function stopUpdate() {
     submit_button.style.display = "inline";
-    stop_button.style.visibility = "hidden";
+    stop_button.style.display = "none";
     stop_value = false;
 }
