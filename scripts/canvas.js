@@ -50,15 +50,14 @@ function run_animation() {
     const PointsLength = document.getElementById('node_input').valueAsNumber;
     const algo = document.getElementById('algo-input').value;
     const speed_value = document.querySelector('input[name="speed-input"]').value;
-
-    submit_button.style.display = "none";
-    stop_button.style.display = "inline"
-    
+ 
     if (n_nodes > 1000 || n_nodes < 5) {
         nodeRangeText.style.color = "#ff0000";
         return;
     } else {
         nodeRangeText.style.color = "#A9A9A9";
+        submit_button.style.display = "none";
+        stop_button.style.display = "inline"
     }
 
     let points = createRandomPoints(PointsLength, canvas.width, canvas.height);
