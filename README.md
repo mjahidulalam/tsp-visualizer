@@ -1,8 +1,8 @@
-# Traveling Salesperson Problem Visualizer
+# Travelling Salesperson Problem Visualizer
 [Check out the web app](https://mjahidulalam.github.io/tsp-visualizer/)
 <br/>
 
-Web app created to help visualise algorithms used to solve the classic Traveling Salesperson problem. The following algorithms have been implemented so far:
+Web app created to help visualise algorithms used to solve the classic Travelling Salesperson problem. The following algorithms have been implemented so far:
 - Nearest Neighbor
 - Nearest Insertion
 - Farthest Insertion
