@@ -31,7 +31,7 @@ stop_button.addEventListener('click', function() {
 });
 
 function updateSpeed(e) {
-    n_nodes = e.target.value
+    const n_nodes = e.target.value
     if (n_nodes < 50) {
         speedInput.value = 300;
     } else if (n_nodes >= 50 && n_nodes < 100) {
@@ -51,7 +51,7 @@ function run_animation() {
     const algo = document.getElementById('algo-input').value;
     const speed_value = document.querySelector('input[name="speed-input"]').value;
  
-    if (n_nodes > 1000 || n_nodes < 5) {
+    if (PointsLength > 1000 || PointsLength < 5 || !PointsLength) {
         nodeRangeText.style.color = "#ff0000";
         return;
     } else {
