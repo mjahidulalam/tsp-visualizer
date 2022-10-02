@@ -5,7 +5,7 @@ function drawPoint(x, y, c, size=3, color='white'){
     c.fill();
 }
 
-function plotPoints(points, length, base_color = "red", base_size = 7, node_color = "white", node_size = 5.5){
+function plotPoints(points, length, base_color = "red", base_size = 7, node_color = "white", node_size = 4.5){
     for(var i = 0; i < length; i++) {
         if (i == 0) {
             drawPoint(points[i][0], points[i][1], c, size=base_size, color=base_color);
