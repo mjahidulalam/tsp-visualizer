@@ -21,15 +21,15 @@ stop_button.addEventListener('click', function() {
 function updateSpeed(e) {
     n_nodes = e.target.value
     if (n_nodes < 50) {
-        speedInput.value = 0;
+        speedInput.value = 300;
     } else if (n_nodes >= 50 && n_nodes < 100) {
-        speedInput.value = 1;
+        speedInput.value = 150;
     } else if (n_nodes >= 100 && n_nodes < 300) {
-        speedInput.value = 2;
+        speedInput.value = 120;
     } else if (n_nodes >= 300 && n_nodes < 500) {
-        speedInput.value = 3;
+        speedInput.value = 60;
     } else {
-        speedInput.value = 4;
+        speedInput.value = 20;
     }
 }
 
@@ -37,12 +37,10 @@ function run_animation() {
     c.clearRect(0, 0, canvas.width, canvas.height);
     const PointsLength = document.getElementById('node_input').valueAsNumber;
     const algo = document.querySelector('input[name="algo-input"]:checked').value;
-    const speed_input = document.querySelector('input[name="speed-input"]').value;
-
-    const speed_values = {0: 200, 1: 100, 2:50, 3:20, 4:10}
+    const speed_value = document.querySelector('input[name="speed-input"]').value;
 
     submit_button.style.display = "none";
-    stop_button.style.visibility = "visible";
+    stop_button.style.visibility = "visible"
     
     if (n_nodes > 1000 || n_nodes < 5) {
         nodeRangeText.style.color = "#ff0000";
@@ -50,7 +48,7 @@ function run_animation() {
     } else {
         nodeRangeText.style.color = "#A9A9A9";
     }
-    
+
     let points = createRandomPoints(PointsLength, canvas.width, canvas.height);
     plotPoints(points, PointsLength)
 
@@ -63,16 +61,14 @@ function run_animation() {
     c.moveTo(points[0][0], points[0][1]);
 
     if (algo == "NN") {
-        setTimeout(function(){NearestNeighbors(points, speed = speed_values[speed_input])}, speed_values[speed_input])
+        setTimeout(function(){NearestNeighbors(points, speed = speed_value)}, speed_value)
     } else if (algo == "NI") {
         adjList = {"0,0": 0}
-        setTimeout(function(){NearestInsertion(points, speed = speed_values[speed_input])}, speed_values[speed_input])
+        setTimeout(function(){NearestInsertion(points, speed = speed_value)}, speed_value)
     } else if (algo == "FI") {
         adjList = {"0,0": 0}
-        setTimeout(function(){FarthestInsertion(points, speed = speed_values[speed_input])}, speed_values[speed_input])
+        setTimeout(function(){FarthestInsertion(points, speed = speed_value)}, speed_value)
     } else {
         alert("Not yet implemented");
     }
-
-    return;
 }
